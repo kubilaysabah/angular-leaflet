@@ -1,1 +1,21 @@
-<router-outlet />
+<app-header />
+
+<main class="container flex flex-wrap">
+  <section class="w-full lg:w-3/5">
+    <h1 class="font-medium text-xl mb-5">{{ "Lorem ipsum" }}</h1>
+    <app-map [data]="data"></app-map>
+  </section>
+  <section class="w-full lg:w-2/5 pl-3">
+    <section class="relative">
+      <input type="text" class="focus:outline-none w-full rounded-xl border pl-5 pr-10 py-1 placeholder:text-gray-400" placeholder="Search" />
+      <button class="absolute top-1/2 right-5 z-[1] -translate-y-1/2">
+        <img [ngSrc]="'/search.svg'" alt="Search" width="16" height="16" />
+      </button>
+    </section>
+    <section class="bg-white shadow-md rounded p-5 mt-3 grid grid-cols-2 gap-2 overflow-y-auto h-full">
+      @for(item of data; track item.id) {
+        <app-card [heat]="item.heat" [humidity]="item.humidity" [battery]="item.battery" [date]="item.date" />
+      }
+    </section>
+  </section>
+</main>

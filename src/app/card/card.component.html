@@ -1,0 +1,27 @@
+<section class="bg-[#F2F9FF] rounded-lg p-4 relative">
+  <strong class="block text-sm font-semibold">{{ "Sıcaklık ve Nem Sensörü" }}</strong>
+  <small class="text-xs text-black/50">{{ "1 nolu kapı" }}</small>
+  <img [ngSrc]="batteries[battery].icon" [alt]="batteries[battery].name" width="30" height="14" />
+
+  <section class="flex flex-wrap items-center gap-x-2 mt-5">
+    <section class="w-auto">
+      <section class="flex items-center gap-x-2">
+        <img [ngSrc]="'/heat.svg'" alt="Sıcaklık" width="24" height="30.55" />
+        <small class="text-lg">{{ heat + " °C" }}</small>
+      </section>
+    </section>
+
+    <section class="w-auto">
+      <section class="flex items-center gap-x-2">
+        <img [ngSrc]="'/moisture.svg'" alt="tam şarj" width="24" height="25" />
+        <small class="text-lg">{{ "%" + humidity }}</small>
+      </section>
+    </section>
+  </section>
+
+  <section class="flex flex-wrap items-center justify-between mt-4">
+    <time class="text-[10px] text-black">{{ date.toDateString() }}</time>
+
+    <img [ngSrc]="'/degree.svg'" alt="Sıcaklık ve nem sensörü" width="32" height="32" />
+  </section>
+</section>

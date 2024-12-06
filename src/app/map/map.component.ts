@@ -9,8 +9,6 @@ import { State } from '../app.component';
   styleUrl: './map.component.css'
 })
 export class MapComponent implements AfterViewInit {
-  private _data: State[] = [];
-
   private map!: L.Map;
 
   private initMap(): void {
@@ -28,17 +26,11 @@ export class MapComponent implements AfterViewInit {
     tiles.addTo(this.map);
   }
 
-  @Input() set data(value: State[]) {
-    this._data = value;
-  };
+  @Input() data: State[] = [];
 
   ngAfterViewInit(): void {
     this.initMap();
     this.setMarker();
-  }
-
-  get data(): State[] {
-    return this._data;
   }
 
   setMarker() {

@@ -11,15 +11,15 @@ import { NgOptimizedImage } from "@angular/common";
 })
 export class CardComponent {
   batteries: { [key: number]: { name: string; icon: string; } } = {
-    0: {
+    1: {
       name: 'Düşük Batarya',
       icon: '/low.svg'
     },
-    1: {
+    2: {
       name: 'Yarım Batarya',
       icon: '/half.svg'
     },
-    2: {
+    3: {
       name: 'Dolu Batarya',
       icon: '/full.svg'
     },

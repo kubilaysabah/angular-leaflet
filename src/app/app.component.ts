@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit, signal, WritableSignal} from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 
 import { CardComponent } from './card/card.component';
@@ -23,71 +23,56 @@ export interface State {
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  data: State[] = [
-    {
-      id: 1,
-      date: new Date(),
-      heat: 28,
-      humidity: 27,
-      battery: 0,
-      position: { x: 41.0713044, y: 28.9782975 }
-    },
-    {
-      id: 2,
-      date: new Date(),
-      heat: 28,
-      humidity: 27,
-      battery: 1,
-      position: { x: 41.0918035, y: 28.871882 }
-    },
-    {
-      id: 3,
-      date: new Date(),
-      heat: 28,
-      humidity: 27,
-      battery: 2,
-      position: { x: 41.1132139, y: 28.7897675 }
-    },
-    {
-      id: 4,
-      date: new Date(),
-      heat: 28,
-      humidity: 27,
-      battery: 0,
-      position: { x: 41.0116669, y: 29.1345529 }
-    },
-    {
-      id: 5,
-      date: new Date(),
-      heat: 28,
-      humidity: 27,
-      battery: 1,
-      position: { x: 40.3459426, y: 28.9281458 }
-    },
-    {
-      id: 6,
-      date: new Date(),
-      heat: 28,
-      humidity: 27,
-      battery: 2,
-      position: { x: 39.5472702, y: 32.1401521 }
-    },
-    {
-      id: 7,
-      date: new Date(),
-      heat: 28,
-      humidity: 27,
-      battery: 1,
-      position: { x: 40.3459426, y: 28.9281458 }
-    },
-    {
-      id: 8,
-      date: new Date(),
-      heat: 28,
-      humidity: 27,
-      battery: 2,
-      position: { x: 39.5472702, y: 32.1401521 }
+export class AppComponent implements OnInit {
+  data: WritableSignal<State[]> = signal([]);
+
+  ngOnInit(): void {
+    this.generateData();
+  }
+
+  generateData() {
+    this.data.set(Array.from({ length: 10 }).map((_, index) => ({
+      id: index,
+      date: this.randomDate(),
+      heat: this.randomHeat(),
+      humidity: this.randomHumidity(),
+      battery: this.randomBattery(),
+      position: {
+        x: parseFloat(this.randomCoords().x),
+        y: parseFloat(this.randomCoords().y),
+      }
+    })));
+  }
+
+  randomCoords(): { x: string; y: string; } {
+    const minLat = 35.8;
+    const maxLat = 42.1;
+    const minLon = 25.7;
+    const maxLon = 44.8;
+
+    return {
+      x: (Math.random() * (maxLat - minLat) + minLat).toFixed(6),
+      y: (Math.random() * (maxLon - minLon) + minLon).toFixed(6),
     }
-  ]
+  }
+
+  randomHeat(): number {
+    return Math.floor(Math.random() * 45) + 1;
+  }
+
+  randomHumidity(): number {
+    return Math.floor(Math.random() * 100) + 1;
+  }
+
+  randomBattery(): number {
+    return Math.floor(Math.random() * 3) + 1;
+  }
+
+  randomDate(): Date {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    return new Date(yesterday.getTime() + Math.random() * (today.getTime() - yesterday.getTime()));
+  }
 }

@@ -72,6 +72,22 @@ export class AppComponent {
       humidity: 27,
       battery: 2,
       position: { x: 39.5472702, y: 32.1401521 }
+    },
+    {
+      id: 7,
+      date: new Date(),
+      heat: 28,
+      humidity: 27,
+      battery: 1,
+      position: { x: 40.3459426, y: 28.9281458 }
+    },
+    {
+      id: 8,
+      date: new Date(),
+      heat: 28,
+      humidity: 27,
+      battery: 2,
+      position: { x: 39.5472702, y: 32.1401521 }
     }
   ]
 }

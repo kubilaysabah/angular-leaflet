@@ -1,7 +1,7 @@
 <app-header />
 
 <main class="container flex flex-wrap">
-  <section class="w-full lg:w-3/5">
+  <section class="w-full lg:w-3/5 lg:max-h-[730px]">
     <h1 class="font-medium text-xl mb-5">{{ "Lorem ipsum" }}</h1>
     <app-map [data]="data"></app-map>
   </section>
@@ -12,7 +12,7 @@
         <img [ngSrc]="'/search.svg'" alt="Search" width="16" height="16" />
       </button>
     </section>
-    <section class="bg-white shadow-md rounded p-5 mt-3 grid grid-cols-2 gap-2 overflow-y-auto h-full">
+    <section class="bg-white shadow-md rounded p-5 mt-3 grid grid-cols-2 gap-2 overflow-y-auto lg:max-h-[730px]">
       @for(item of data; track item.id) {
         <app-card [heat]="item.heat" [humidity]="item.humidity" [battery]="item.battery" [date]="item.date" />
       }

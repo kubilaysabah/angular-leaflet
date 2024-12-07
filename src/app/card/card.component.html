@@ -20,7 +20,7 @@
   </section>
 
   <section class="flex flex-wrap items-center justify-between mt-4">
-    <time class="text-[10px] text-black">{{ date.toDateString() }}</time>
+    <time class="text-[10px] text-black">{{ date | date: 'dd.MM.yyyy hh:mm' }}</time>
 
     <img [ngSrc]="'/degree.svg'" alt="Sıcaklık ve nem sensörü" width="32" height="32" />
   </section>

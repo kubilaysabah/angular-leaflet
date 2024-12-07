@@ -1,18 +1,18 @@
 <app-header />
 
-<main class="container flex flex-wrap">
-  <section class="w-full lg:w-3/5 lg:max-h-[730px]">
-    <h1 class="font-medium text-xl mb-5">{{ "Lorem ipsum" }}</h1>
-    <app-map (update)="update($event)" (selectedItem)="this.selected = $event" [data]="data()"></app-map>
-  </section>
-  <section class="w-full lg:w-2/5 pl-3">
-    <section class="relative">
+<main class="container p-5">
+  <section class="grid lg:grid-cols-2 gap-x-5 gap-y-5">
+    <h1 class="font-medium text-xl order-1">{{ "Lorem ipsum" }}</h1>
+    <section class="relative lg:ml-auto lg:max-w-fit order-3 lg:order-2">
       <input type="text" class="focus:outline-none w-full rounded-xl border pl-5 pr-10 py-1 placeholder:text-gray-400" placeholder="Search" />
       <button class="absolute top-1/2 right-5 z-[1] -translate-y-1/2">
         <img [ngSrc]="'/search.svg'" alt="Search" width="16" height="16" />
       </button>
     </section>
-    <section class="bg-white shadow-md rounded p-5 mt-3 grid grid-cols-2 gap-2 overflow-y-auto lg:max-h-[730px]">
+    <section class="h-[730px] order-2 lg:order-3">
+      <app-map (update)="update($event)" (selectedItem)="this.selected = $event" [data]="data()"></app-map>
+    </section>
+    <section class="order-4 bg-white shadow-md rounded p-5 mt-3 grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2 overflow-y-auto lg:max-h-[730px]">
       @for(item of data(); track trackById) {
         <app-card [selected]="selected?.id === item.id" [heat]="item.heat" [humidity]="item.humidity" [battery]="item.battery" [date]="item.date" />
       }

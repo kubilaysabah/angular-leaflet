@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { NgOptimizedImage } from "@angular/common";
+import {DatePipe, NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-card',
-    imports: [
-        NgOptimizedImage
-    ],
+  imports: [
+    NgOptimizedImage,
+    DatePipe
+  ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
 })

@@ -1,0 +1,22 @@
+<dialog class="block static ">
+  <strong class="block text-sm font-medium">{{ "Nem ve Sıcaklık Sensörü" }}</strong>
+  <small class="block text-xs text-black/50 mb-3">{{ "salon" }}</small>
+  <section class="grid grid-cols-2 gap-3 justify-between">
+    <section class="flex items-center text-lg">
+      <img src="/heat.svg" alt="Sıcaklık" width="24" height="30.55" />
+      <span class="ml-3">{{ heat + "°C" }}</span>
+    </section>
+    <button class="bg-[#F2F9FF] text-[#0060C0] rounded text-sm py-2.5 px-2">
+      <strong class="font-bold">{{ "Sıcaklık" }}</strong>
+      {{ "Ayarla" }}
+    </button>
+    <section class="flex items-center text-lg">
+      <img src="/moisture.svg" alt="Nem" width="24" height="25.82" />
+      <span class="ml-3">{{ "%" + humidity }}</span>
+    </section>
+    <button class="bg-[#F2F9FF] text-[#0060C0] rounded text-sm py-2.5 px-2">
+      <strong class="font-bold">{{ "Nem" }}</strong>
+      {{ "Ayarla" }}
+    </button>
+  </section>
+</dialog>

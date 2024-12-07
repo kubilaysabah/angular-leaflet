@@ -1,9 +1,20 @@
-import { Component, Input, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  AfterViewInit,
+  ApplicationRef,
+  Injector,
+} from '@angular/core';
+import { createCustomElement } from '@angular/elements';
 import * as L from 'leaflet';
-import { State } from '../app.component';
+
+import { type State } from '../app.component';
+import { PopupComponent } from '../popup/popup.component';
+import { PopupService } from '../popup/popup.service';
 
 @Component({
   selector: 'app-map',
+  providers: [PopupService],
   imports: [],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css'
@@ -28,13 +39,24 @@ export class MapComponent implements AfterViewInit {
 
   @Input() data: State[] = [];
 
+  constructor(
+    injector: Injector,
+    public popup: PopupService,
+    private readonly applicationRef: ApplicationRef
+  ) {
+    // Convert `PopupComponent` to a custom element.
+    const PopupElement = createCustomElement(PopupComponent, {injector});
+    // Register the custom element with the browser.
+    customElements.define('popup-element', PopupElement);
+  }
+
   ngAfterViewInit(): void {
     this.initMap();
     this.setMarker();
   }
 
-  setMarker() {
-    const icon = L.icon({
+  icon() {
+    return L.icon({
       iconUrl: '/pin.svg',
       shadowUrl: '/pin-shadow.svg',
 
@@ -44,9 +66,15 @@ export class MapComponent implements AfterViewInit {
       shadowAnchor: [20, 50],  // the same for the shadow
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
+  }
 
+  setMarker() {
     this.data.forEach((item) => {
-      L.marker([item.position.x, item.position.y], { icon: icon }).addTo(this.map).bindPopup("I am a green leaf.");
+      const marker = L.marker([item.position.x, item.position.y], { icon: this.icon() }).addTo(this.map);
+      const popup = this.popup.showAsComponent({ heat: item.heat, humidity: item.humidity });
+      marker.bindPopup(popup, {
+        minWidth: 300,
+      });
     })
   }
 }

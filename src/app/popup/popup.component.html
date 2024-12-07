@@ -1,22 +1,48 @@
-<dialog class="block static ">
-  <strong class="block text-sm font-medium">{{ "Nem ve Sıcaklık Sensörü" }}</strong>
-  <small class="block text-xs text-black/50 mb-3">{{ "salon" }}</small>
-  <section class="grid grid-cols-2 gap-3 justify-between">
-    <section class="flex items-center text-lg">
-      <img src="/heat.svg" alt="Sıcaklık" width="24" height="30.55" />
-      <span class="ml-3">{{ heat + "°C" }}</span>
+<dialog class="block static font-['Poppins',_sans-serif]">
+  <ng-container *ngIf="type === 0">
+    <p class="!my-0 block text-sm font-medium">{{ "Nem ve Sıcaklık Sensörü" }}</p>
+    <small class="block text-xs text-black/50 mb-3">{{ "salon" }}</small>
+    <section class="grid grid-cols-2 gap-3 justify-between">
+      <section class="flex items-center text-lg">
+        <img src="/heat.svg" alt="Sıcaklık" width="24" height="30.55" />
+        <span class="ml-3">{{ heat + "°C" }}</span>
+      </section>
+      <button (click)="type = 1" class="shadow bg-[#F2F9FF] text-[#0060C0] rounded text-sm py-2.5 px-2">
+        <strong class="font-bold">{{ "Sıcaklık" }}</strong>
+        {{ "Ayarla" }}
+      </button>
+      <section class="flex items-center text-lg">
+        <img src="/moisture.svg" alt="Nem" width="24" height="25.82" />
+        <span class="ml-3">{{ "%" + humidity }}</span>
+      </section>
+      <button (click)="type = 2" class="shadow bg-[#F2F9FF] text-[#0060C0] rounded text-sm py-2.5 px-2">
+        <strong class="font-bold">{{ "Nem" }}</strong>
+        {{ "Ayarla" }}
+      </button>
     </section>
-    <button class="bg-[#F2F9FF] text-[#0060C0] rounded text-sm py-2.5 px-2">
-      <strong class="font-bold">{{ "Sıcaklık" }}</strong>
-      {{ "Ayarla" }}
-    </button>
-    <section class="flex items-center text-lg">
-      <img src="/moisture.svg" alt="Nem" width="24" height="25.82" />
-      <span class="ml-3">{{ "%" + humidity }}</span>
+  </ng-container>
+
+  <ng-container *ngIf="type !== 0">
+     <p class="!my-0 block text-[#0060C0] text-sm"><strong class="font-black">{{ type === 1 ? "Sıcaklık" : "Nem" }}</strong> {{ "Ayarla" }}</p>
+    <small class="block">{{ "Salon" }}</small>
+
+    <section class="grid grid-cols-2 gap-4 mt-3">
+      <section class="flex items-center flex-wrap">
+        <p class="!mt-0 !mb-2 w-full">{{ "Mevcut" }}</p>
+        <img src="/heat.svg" alt="Sıcaklık" width="20" height="25.46" *ngIf="type === 1" />
+        <img src="/moisture.svg" alt="Nem" width="20" height="21.52" *ngIf="type === 2" />
+        <p class="!my-0 !ml-1 block w-auto">{{ heat + " °C" }}</p>
+      </section>
+
+      <section>
+        <label for="heat">{{ "Yeni" }}</label>
+        <input type="text" id="heat" class="w-full focus:outline-none border rounded px-2 py-1 mt-2" />
+      </section>
     </section>
-    <button class="bg-[#F2F9FF] text-[#0060C0] rounded text-sm py-2.5 px-2">
-      <strong class="font-bold">{{ "Nem" }}</strong>
-      {{ "Ayarla" }}
-    </button>
-  </section>
+
+    <nav class="grid grid-cols-2 gap-4 mt-3">
+      <button (click)="type = 0" class="w-full border border-[#007DFC] text-[#007DFC] text-sm py-2 rounded-lg">{{ "İptal Et" }}</button>
+      <button class="w-full rounded-lg bg-[#007DFC] text-white text-sm py-2">{{ "Güncelle" }}</button>
+    </nav>
+  </ng-container>
 </dialog>

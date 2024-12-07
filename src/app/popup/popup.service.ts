@@ -1,4 +1,4 @@
-import { ApplicationRef, ComponentRef, createComponent, EnvironmentInjector, Injectable } from '@angular/core';
+import { ApplicationRef, EventEmitter, createComponent, EnvironmentInjector, Injectable } from '@angular/core';
 import { NgElement, WithProperties } from '@angular/elements';
 import { PopupComponent } from './popup.component';
 
@@ -9,7 +9,7 @@ export class PopupService {
     private applicationRef: ApplicationRef,
   ) {}
 
-  showAsComponent({ heat, humidity }: { heat: number; humidity: number }) {
+  showAsComponent({ heat, humidity, update }: { heat: number; humidity: number; update: ({ heat, humidity }: { heat?: number; humidity?: number; }) => void }) {
     // Create element
     const popup = document.createElement('popup-component');
     // Create the component and wire it up with the element
@@ -22,6 +22,7 @@ export class PopupService {
 
     popupComponentRef.instance.heat = heat;
     popupComponentRef.instance.humidity = humidity;
+    popupComponentRef.instance.update.subscribe(update);
     popupComponentRef.changeDetectorRef.detectChanges();
 
     return popup;

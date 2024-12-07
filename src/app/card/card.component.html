@@ -1,4 +1,4 @@
-<section class="bg-[#F2F9FF] rounded-lg p-4 relative">
+<section class="bg-[#F2F9FF] rounded-lg p-4 relative border-[2px]" [class.border-transparent]="!selected" [class.border-[#007DFC]]="selected">
   <strong class="block text-sm font-semibold">{{ "Sıcaklık ve Nem Sensörü" }}</strong>
   <small class="text-xs text-black/50">{{ "1 nolu kapı" }}</small>
   <img [ngSrc]="batteries[battery].icon" [alt]="batteries[battery].name" width="30" height="14" />

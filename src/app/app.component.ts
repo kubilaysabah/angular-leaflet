@@ -1,4 +1,4 @@
-import {Component, OnInit, signal, WritableSignal} from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 
 import { CardComponent } from './card/card.component';
@@ -25,6 +25,8 @@ export interface State {
 })
 export class AppComponent implements OnInit {
   data: WritableSignal<State[]> = signal([]);
+
+  selected: State | null = null;
 
   ngOnInit(): void {
     this.generateData();
@@ -74,5 +76,25 @@ export class AppComponent implements OnInit {
     yesterday.setDate(today.getDate() - 1);
 
     return new Date(yesterday.getTime() + Math.random() * (today.getTime() - yesterday.getTime()));
+  }
+
+  update({ heat, humidity }: { heat?: number; humidity?: number }) {
+    if (!this.selected) {
+      return;
+    }
+
+    this.data.update(value =>
+      value.map(state =>
+        state.id === this.selected?.id
+          ? { ...state, heat: heat ?? state.heat, humidity: humidity ?? state.humidity }
+          : state
+      )
+    );
+
+    this.selected = null;
+  }
+
+  trackById(index: number, item: State): number {
+    return item.id;
   }
 }

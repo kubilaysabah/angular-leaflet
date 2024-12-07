@@ -31,18 +31,18 @@
         <p class="!mt-0 !mb-2 w-full">{{ "Mevcut" }}</p>
         <img src="/heat.svg" alt="Sıcaklık" width="20" height="25.46" *ngIf="type === 1" />
         <img src="/moisture.svg" alt="Nem" width="20" height="21.52" *ngIf="type === 2" />
-        <p class="!my-0 !ml-1 block w-auto">{{ heat + " °C" }}</p>
+        <p class="!my-0 !ml-1 block w-auto">{{ type === 1 ? heat + " °C" : "%" + humidity }}</p>
       </section>
 
       <section>
-        <label for="heat">{{ "Yeni" }}</label>
-        <input type="text" id="heat" class="w-full focus:outline-none border rounded px-2 py-1 mt-2" />
+        <label [for]="type === 1 ? 'heat' : 'humidity'">{{ "Yeni" }}</label>
+        <input #input type="text" [id]="type === 1 ? 'heat' : 'humidity'" class="w-full focus:outline-none border rounded px-2 py-1 mt-2" />
       </section>
     </section>
 
     <nav class="grid grid-cols-2 gap-4 mt-3">
       <button (click)="type = 0" class="w-full border border-[#007DFC] text-[#007DFC] text-sm py-2 rounded-lg">{{ "İptal Et" }}</button>
-      <button class="w-full rounded-lg bg-[#007DFC] text-white text-sm py-2">{{ "Güncelle" }}</button>
+      <button (click)="updateData(input.value)" class="w-full rounded-lg bg-[#007DFC] text-white text-sm py-2">{{ "Güncelle" }}</button>
     </nav>
   </ng-container>
 </dialog>

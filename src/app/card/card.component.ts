@@ -25,6 +25,8 @@ export class CardComponent {
     },
   }
 
+  @Input() selected = false;
+
   @Input() battery: number = 0;
 
   @Input() heat: number = 0;
